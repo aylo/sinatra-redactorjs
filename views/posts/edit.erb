@@ -1,0 +1,12 @@
+<h3>Редактировать</h3>
+<a href="/posts/<%= @post.id %>/delete">Удалить страницу</a><br><br>
+<form action="/posts/<%= @post.id %>/edit" method="post">
+  <input name="_method" type="hidden" value="put" />
+  <label for="title"><strong>Название:</strong></label><br>
+  <input type="text" name="title" id="title" value="<%= @post.title %>">
+  <br>
+  <label for="body"><strong>Тело страницы:</strong></label><br>
+  <textarea id="body" class="redactor_1" name="body" style="height: 250px;"><%= @post.body %></textarea>
+  <br>
+  <input id="post_submit" name="commit" type="submit" value="Сохранить">
+</form>

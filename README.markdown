@@ -1,0 +1,1 @@
+Попытка прикрутить [Redactor](http://redactorjs.com/) к приложению [Sinatra](http://www.sinatrarb.com/).
