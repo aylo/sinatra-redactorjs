@@ -124,3 +124,15 @@ post '/upload/file' do
     '<a href="/uploads/files/' + File.join(filename) + '" />' + File.join(filename) + '</a>'
   end
 end
+
+#List UploadedImages
+get '/images' do
+  @uploadedimage = UploadedImages.all
+  erb :'images'
+end
+
+#Delete UploadedImage
+get '/images/:id/delete' do
+  UploadedImages.get(params[:id]).destroy
+  redirect '/images'
+end
