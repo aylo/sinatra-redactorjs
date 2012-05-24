@@ -1,5 +1,5 @@
 <strong><a href="/posts">Перейти ко всем post'ам</a></strong>
-<h2>Список загруженных файлов</h2>	
+<h2>Список загруженных изображений</h2>	
 <% @uploadedimage.each do |uploadedimages| %>
 <a href="<%= uploadedimages.image %>"><img src="<%= uploadedimages.thumb %>"></a><br>
 <a href="/images/<%= uploadedimages.id %>/delete">удалить</a><br><br>
