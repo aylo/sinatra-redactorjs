@@ -39,6 +39,13 @@ class UploadedImages
   mount_uploader :file, ImageUploader
 end
 
+class UploadedFiles
+  include DataMapper::Resource
+  property :id,    Serial
+  property :name,  String
+  property :path,  String
+end
+
 DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite:./db/base.db')
 DataMapper.finalize
 DataMapper.auto_upgrade!
@@ -99,4 +106,21 @@ post '/upload/image' do
     f.write JSON.pretty_generate(@images)
   end
   '<img src="/uploads/images/' + File.join(filename) + '" />'
+end
+
+set :files,  File.join(settings.public_directory, 'uploads/files')
+
+post '/upload/file' do
+  params[:file]
+  filename = params[:file][:filename]
+  file = params[:file][:tempfile]
+  ext = File.extname(filename)
+  if ext == ".doc" || ext == ".zip" || ext == ".dmg"
+    File.open(File.join(settings.files, filename), 'wb') {|f| f.write file.read }
+    upload_f = UploadedFiles.new
+    upload_f.name = params[:name] = File.join(filename)
+    upload_f.path = params[:path] = '/uploads/files/' + File.join(filename)
+    upload_f.save
+    '<a href="/uploads/files/' + File.join(filename) + '" />' + File.join(filename) + '</a>'
+  end
 end
