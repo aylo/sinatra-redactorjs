@@ -116,7 +116,7 @@ post '/upload/file' do
   file = params[:file][:tempfile]
   ext = File.extname(filename)
   if ext == ".doc" || ext == ".zip" || ext == ".dmg"
-    File.open(File.join(settings.files, filename), 'wb')
+    File.open(File.join(settings.files, filename), 'wb') {|f| f.write file.read}
     upload_f = UploadedFiles.new
     upload_f.name = params[:name] = File.join(filename)
     upload_f.path = params[:path] = '/uploads/files/' + File.join(filename)
